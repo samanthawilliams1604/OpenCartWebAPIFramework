@@ -1,0 +1,34 @@
+
+import { Locator, Page } from "@playwright/test";
+import { BasePage } from "./BasePage";
+
+
+export class SearchResultsPage extends BasePage {
+
+    //private Locators: fixed on the page - static - based on basis on these parameters
+
+    private readonly searchResults: Locator;
+    
+    
+
+    //const... of the class: initialise the locators
+    constructor(page: Page) {
+        super(page);
+        this.searchResults = page.locator('div.product-layout');
+        
+
+
+        
+        
+    };
+
+    //actions
+    async getProductSearchResultsCount():Promise<number>{
+        return await this.searchResults.count()
+    }
+    async selectProduct(productName: string): Promise<void>{
+        await this.page.getByRole('link', {name:productName, exact: true}).first().click();
+
+    }
+
+}
